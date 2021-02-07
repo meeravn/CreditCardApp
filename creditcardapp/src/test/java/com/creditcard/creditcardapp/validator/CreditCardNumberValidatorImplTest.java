@@ -29,13 +29,13 @@ public class CreditCardNumberValidatorImplTest {
     }
 
     /**
-     * test for negative and null
+     * test for negative and null and 0
      */
     @Test
     public void isNegativeNumericTest() {
-        List<Long> numList = new ArrayList<>(Arrays.asList(null, new Long(-1)));
+        List<Long> numList = new ArrayList<>(Arrays.asList(null, new Long(-1),0l));
         numList.stream().forEach(num -> validator.isPostiveNumeric(num, errors));
-        assertEquals(errors.getErrors().size(), 2);
+        assertEquals(errors.getErrors().size(), 3);
         errors.getErrors().stream().forEach(e ->
         {
             assertEquals(e.getCode(), ErrorMessage.POSITIVE_NUMBER);

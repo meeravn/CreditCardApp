@@ -35,7 +35,7 @@ public class CreditCardNumberValidatorImpl implements CreditCardNumberValidator 
      */
     @Override
     public void isPostiveNumeric(Long cardNumber, Errors errors) {
-        if (cardNumber == null || cardNumber < 0) {
+        if (cardNumber == null || cardNumber <= 0) {
             errors.getErrors().add(new Error(ErrorMessage.POSITIVE_NUMBER, ErrorMessage.POSITIVE_NUMBER_MSG));
         }
     }

@@ -6,7 +6,7 @@ public interface ErrorMessage {
     String INVALID_LENGTH = "020";
     String INVALID_LENGTH_MSG = "The length of the Credit Card Number is invalid";
     String POSITIVE_NUMBER = "010";
-    String POSITIVE_NUMBER_MSG = "Credit Card Number should be Mandatory Positive";
+    String POSITIVE_NUMBER_MSG = "Credit Card Number should be Mandatory Positive,greater than 0";
     String INVALID_NUMBER = "030";
     String INVALID_NUMBER_MSG = "The Credit Card Number is invalid";
     String INVALID_CUSTOMERNAME = "040";
