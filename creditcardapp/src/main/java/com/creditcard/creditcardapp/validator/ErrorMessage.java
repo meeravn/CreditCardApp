@@ -11,5 +11,6 @@ public interface ErrorMessage {
     String INVALID_NUMBER_MSG = "The Credit Card Number is invalid";
     String INVALID_CUSTOMERNAME = "040";
     String INVALID_CUSTOMERNAME_MSG = "Customer Name is Mandatory,atleast 2 characters";
-
+    String CARD_EXISTS = "050";
+    String CARD_EXISTS_MSG = "Credit Card Number exists in the system,Please Contact HelpDesk";
 }

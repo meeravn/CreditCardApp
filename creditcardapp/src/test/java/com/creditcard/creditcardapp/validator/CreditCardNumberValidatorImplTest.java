@@ -1,8 +1,10 @@
 package com.creditcard.creditcardapp.validator;
 
 import com.creditcard.creditcardapp.beans.Errors;
+import com.creditcard.creditcardapp.service.CreditCardService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -11,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class CreditCardNumberValidatorImplTest {
@@ -20,6 +23,9 @@ public class CreditCardNumberValidatorImplTest {
 
     @Autowired
     Luhn10Impl luhnAlgo;
+
+    @Mock
+    CreditCardService service;
 
     private Errors errors;
 
@@ -65,7 +71,6 @@ public class CreditCardNumberValidatorImplTest {
     }
 
     @Test
-
     public void isCreditCardNumberLengthValidTest() {
         List<Long> numList = new ArrayList<>(Arrays.asList(1234567890123456789l));
         numList.stream().forEach(num -> validator.isCreditCardNumberLengthValid(num, errors));
@@ -111,5 +116,13 @@ public class CreditCardNumberValidatorImplTest {
             assertEquals(e.getCode(), ErrorMessage.INVALID_CUSTOMERNAME);
             assertEquals(e.getMessage(), ErrorMessage.INVALID_CUSTOMERNAME_MSG);
         });
+    }
+
+    @Test
+    public void doesCardExistsInSystemTest()
+    {
+        when(service.findByCreditCardNumber(123456l)).thenReturn(new ArrayList<>());
+        validator.doesCardExistsInSystem(123456l,errors);
+        assertEquals(errors.getErrors().size(), 0);
     }
 }

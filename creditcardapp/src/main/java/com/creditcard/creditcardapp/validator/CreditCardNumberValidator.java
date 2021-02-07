@@ -11,4 +11,6 @@ public interface CreditCardNumberValidator {
     void isCreditCardNumberLengthValid(Long cardNumber, Errors errors);
 
     void isCustomerNameValid(String customerName, Errors errors);
+
+    void doesCardExistsInSystem(Long cardNum, Errors errors);
 }

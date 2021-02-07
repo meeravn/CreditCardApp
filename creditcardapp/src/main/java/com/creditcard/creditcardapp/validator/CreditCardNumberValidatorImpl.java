@@ -2,15 +2,22 @@ package com.creditcard.creditcardapp.validator;
 
 import com.creditcard.creditcardapp.beans.Error;
 import com.creditcard.creditcardapp.beans.Errors;
+import com.creditcard.creditcardapp.entities.CreditCardBean;
+import com.creditcard.creditcardapp.service.CreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 @Component
 public class CreditCardNumberValidatorImpl implements CreditCardNumberValidator {
 
     @Autowired
     private Luhn10Impl lunhAlgo;
+
+    @Autowired
+    CreditCardService service;
 
     /**
      * check  all validations for credit card number
@@ -61,6 +68,16 @@ public class CreditCardNumberValidatorImpl implements CreditCardNumberValidator 
     public void isCustomerNameValid(String customerName, Errors errors) {
         if (!StringUtils.hasLength(customerName) || customerName.length() < ErrorMessage.CUSTOMERNAME_LENGTH) {
             errors.getErrors().add(new Error(ErrorMessage.INVALID_CUSTOMERNAME, ErrorMessage.INVALID_CUSTOMERNAME_MSG));
+        }
+    }
+
+    @Override
+    public void doesCardExistsInSystem(Long cardNum, Errors errors)
+    {
+        List<CreditCardBean> cardList = service.findByCreditCardNumber(cardNum);
+        if(cardList!=null && !cardList.isEmpty())
+        {
+            errors.getErrors().add(new Error(ErrorMessage.CARD_EXISTS, ErrorMessage.CARD_EXISTS_MSG));
         }
     }
 }

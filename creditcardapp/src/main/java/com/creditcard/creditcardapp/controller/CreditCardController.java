@@ -50,9 +50,9 @@ public class CreditCardController {
         Errors errors = new Errors();
         validator.isCustomerNameValid(bean.getCustomerName(), errors);
         validator.isCreditCardNumberValid(bean.getCreditCardNumber(), errors);
+        validator.doesCardExistsInSystem(bean.getCreditCardNumber(), errors);
         setDefaults(bean);
         if (errors.getErrors().isEmpty()) {
-
             CreditCardBean creditCard = this.cardService.save(bean);
         } else {
             throw new CreditCardDataInvalidException(errors);
